@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Sketch</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="canvas-area">
+            <canvas id="drawingCanvas" width="500" height="500"></canvas>
+        </div>
+        <div class="controls">
+            <div class="color-selector">
+                <div class="colors">
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                    <div class="color">&nbsp;</div>
+                </div>
+            </div>
+            <div class="zoom-controls">
+                <label><input type="radio" name="zoom" value="1" checked> 1x</label>
+                <label><input type="radio" name="zoom" value="2"> 2x</label>
+                <label><input type="radio" name="zoom" value="3"> 3x</label>
+                <label><input type="radio" name="zoom" value="4"> 4x</label>
+            </div>
+        </div>
+        <div class="sprites-area">
+            <canvas id="spritesCanvas" width="500" height="500"></canvas>
+        </div>
+    </div>
+</body>
+
+<!-- import the javascript library file(s) -->
+<script src="https://cdn.jsdelivr.net/npm/p5@1/lib/p5.min.js" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/p5@1/lib/addons/p5.sound.min.js" crossorigin="anonymous"></script> -->
+
+<!-- import the javascript sketch file -->
+<script src="./main.js"></script>
+
+</html>
