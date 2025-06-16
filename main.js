@@ -4,24 +4,7 @@ let drawingColor = 3;
 const drawingWidth = 8;
 const drawingHeight = 8;
 
-let sprite = [
-    9,9,6,0,0,0,0,2,2,0,0,0,0,0,0,0,
-    0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    9,9,6,0,0,0,0,2,2,0,0,0,0,0,0,0,
-    0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-]
+let sprite = `${'0'.repeat(64)}\n`.repeat(64).trim();
 
 const COLORS = [
     "#000000", "#1D2B53", "#7E2553", "#008751", 
@@ -41,7 +24,8 @@ document.querySelectorAll('input[name="zoom"]').forEach(radio => {
 document.querySelectorAll('.color').forEach((color, index) => {
     color.style.backgroundColor = COLORS[index];
     color.addEventListener('click', (e) => {
-        drawingColor = index;
+        // Convert index to hex to match sprite format
+        drawingColor = index.toString(16).toUpperCase();
         console.log('Selected color:', COLORS[index], 'at index:', index, 'drawingColor:', drawingColor);
     });
 });
@@ -96,11 +80,13 @@ function drawGrid() {
 function drawSprite() {
     let x = 0;
     let y = 0;
+    // Remove all whitespace and newline characters
+    sprite = sprite.replace(/\s+/g, '');
     for (let i = 0; i < sprite.length; i++) {
-        fill(COLORS[sprite[i]]);
+        fill(COLORS[parseInt(sprite[i], 16)]);
         rect(x*500/drawingWidth/drawingZoom, y*500/drawingHeight/drawingZoom, 500 / drawingWidth / drawingZoom, 500 / drawingHeight / drawingZoom);
         x++;
-        if (i % 16 === 15) {
+        if (i % 64 === 63) {
             x = 0;
             y++;
         }
@@ -110,16 +96,18 @@ function drawSprite() {
 function drawPixel() {
     if (mouseIsPressed && mouseX >= 0 && mouseX < width && mouseY >= 0 && mouseY < height) {
         const cellSize = 500 / drawingWidth / drawingZoom;
-        const sprites = 2;
+        const sprites = 8;
         const cellX = floor(mouseX / cellSize);
         const cellY = floor(mouseY / cellSize);
         const index = cellX + cellY * drawingWidth * sprites;
         
         // Ensure we're within bounds
         if (index >= 0 && index < sprite.length) {
-            sprite[index] = drawingColor;
+            // Create new string with replaced character
+            sprite = sprite.substring(0, index) + drawingColor + sprite.substring(index + 1);
             console.log(`Cell: (${cellX}, ${cellY}), Index: ${index}`);
         }
+        console.log(sprite);
     }
 }
 
