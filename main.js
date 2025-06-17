@@ -41,6 +41,7 @@ function setup() {
     background(0);
 }
 
+
 function draw() {
     // Clear the canvas
     clear();
@@ -107,13 +108,54 @@ function drawPixel() {
             sprite = sprite.substring(0, index) + drawingColor + sprite.substring(index + 1);
             console.log(`Cell: (${cellX}, ${cellY}), Index: ${index}`);
         }
-        console.log(sprite);
+
+        spritesViewObj.updateSprite(sprite);
     }
 }
+
 
 // Handle window resizing
 function windowResized() {
     // Maintain the fixed size of 500x500
-    resizeCanvas(500, 500);    background(0);
+    resizeCanvas(500, 500);
+    background(0);
 }
 
+
+function spritesView(p, spriteRef, c) {
+    p.sprite = spriteRef;
+    const COLORS = [
+        "#000000", "#1D2B53", "#7E2553", "#008751", 
+        "#AB5236", "#5F574F", "#C2C3C7", "#FFF1E8", 
+        "#FF004D", "#FFA300", "#FFEC27", "#00E436",
+        "#29ADFF", "#83769C", "#FF77A8", "#FFCCAA"];
+
+    p.setup = function() {
+        spritesCanvas = p.createCanvas(500, 500, c);
+        spritesCanvas.style('display', 'block');
+        spritesCanvas.background('#ccc');
+    }
+
+    p.draw = function() {
+        let x = 0;
+        let y = 0;
+        // Remove all whitespace and newline characters
+        p.sprite = p.sprite.replace(/\s+/g, '');
+        for (let i = 0; i < p.sprite.length; i++) {
+            p.fill(COLORS[parseInt(p.sprite[i], 16)]);
+            p.strokeWeight(0);
+            p.rect(x*500/8/8, y*500/8/8, 500/8/8, 500/8/8);
+            x++;
+            if (i % 64 === 63) {
+                x = 0;
+                y++;
+            }
+        }
+    }
+
+    p.updateSprite = function(spriteRef) {
+        p.sprite = spriteRef;
+    }
+}
+
+let spritesViewObj = new p5((p) => spritesView(p, sprite, document.getElementById('spritesCanvas')));
