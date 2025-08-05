@@ -131,9 +131,9 @@ function spritesView(p, spriteRef, c) {
         "#29ADFF", "#83769C", "#FF77A8", "#FFCCAA"];
 
     p.setup = function() {
-        spritesCanvas = p.createCanvas(500, 500, c);
+        spritesCanvas = p.createCanvas(1000, 1000, c);
         spritesCanvas.style('display', 'block');
-        spritesCanvas.background('#ccc');
+        spritesCanvas.background('#000');
     }
 
     p.draw = function() {
@@ -150,6 +150,22 @@ function spritesView(p, spriteRef, c) {
                 x = 0;
                 y++;
             }
+        }
+        p.drawGrid();
+    }
+
+    p.drawGrid = function() {
+        p.stroke(40);
+        p.strokeWeight(1);
+        
+        // Vertical lines
+        for (let x = 0; x < 1000; x += 1000/8/2) {
+            p.line(floor(x), 0, floor(x), 1000);
+        }
+        
+        // Horizontal lines
+        for (let y = 0; y < 1000; y += 1000/8/2) {
+            p.line(0, floor(y), 1000, floor(y));
         }
     }
 

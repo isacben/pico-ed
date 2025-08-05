@@ -17,7 +17,7 @@ body,html {
 }
 
 .sprites-area {
-    flex-basis: 100%;
+    /*flex-basis: 100%;*/
     margin-top: 20px;
 }
 
@@ -82,8 +82,8 @@ body,html {
 }
 
 .sprites-area {
-    width: 500px;
-    height: 500px;
+    /*width: 1000px;
+    height: 1000px;*/
     background-color: #000;
     margin: 10px;
 }
